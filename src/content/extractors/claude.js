@@ -162,7 +162,13 @@ window.ChatExporter.ClaudeExtractor = class ClaudeExtractor extends window.ChatE
       case "svg":
       case "time":  return "";
 
-      case "div":
+      // Code block wrapper — Claude wraps <pre> in a div with a header that shows
+      // the language name and a copy button. Skip everything except the <pre>.
+      case "div": {
+        const pre = node.querySelector(":scope > pre");
+        if (pre) return this._nodeToMd(pre);
+        return inner();
+      }
 
       // Spans and everything else: just recurse.
       case "span":
