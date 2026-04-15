@@ -31,12 +31,33 @@ exportBtn.addEventListener("click", async () => {
   try {
     response = await chrome.tabs.sendMessage(tab.id, { type: "EXTRACT_CHAT" });
   } catch {
-    setStatus(
-      "Could not reach the page. Make sure you are on a supported chat page (Claude, ChatGPT, or Gemini) and reload it.",
-      "error"
-    );
-    setLoading(false);
-    return;
+    // Content script not present — inject programmatically and retry once.
+    try {
+      await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: [
+          "src/content/extractors/base.js",
+          "src/content/extractors/claude.js",
+          "src/content/extractors/chatgpt.js",
+          "src/content/extractors/gemini.js",
+          "src/content/content.js",
+        ],
+      });
+    } catch (injectErr) {
+      console.error("[ChatExporter] executeScript failed:", injectErr);
+      setStatus(`Injection failed: ${injectErr.message}`, "error");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      response = await chrome.tabs.sendMessage(tab.id, { type: "EXTRACT_CHAT" });
+    } catch (msgErr) {
+      console.error("[ChatExporter] sendMessage after inject failed:", msgErr);
+      setStatus("Scripts injected but no response from page. Check the popup console for details.", "error");
+      setLoading(false);
+      return;
+    }
   }
 
   if (!response?.ok) {
