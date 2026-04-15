@@ -32,9 +32,34 @@ main {
   gap: 12px;
 }
 
+.export-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.format-select {
+  flex: 1;
+  padding: 9px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #1a1a1a;
+  background: #fff;
+  cursor: pointer;
+  appearance: auto;
+}
+
+.format-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px #bfdbfe;
+}
+
 .btn-primary {
-  width: 100%;
-  padding: 9px 12px;
+  flex-shrink: 0;
+  padding: 9px 14px;
   background: #2563eb;
   color: #fff;
   border: none;

@@ -3,7 +3,7 @@
   "name": "Chat Exporter",
   "version": "0.1.0",
   "description": "Export chats from Claude, ChatGPT, and Gemini as Markdown",
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "downloads"],
   "action": {
     "default_popup": "src/popup/popup.html",
     "default_title": "Export Chat"

@@ -1,5 +1,5 @@
 import { format, extension } from "../formatters/markdown.js";
-import { downloadText, safeFilename } from "../utils/download.js";
+import { saveAsText, safeFilename } from "../utils/download.js";
 
 const exportBtn = document.getElementById("export-btn");
 const statusEl = document.getElementById("status");
@@ -11,7 +11,7 @@ function setStatus(message, type = "info") {
 
 function setLoading(loading) {
   exportBtn.disabled = loading;
-  exportBtn.textContent = loading ? "Exporting…" : "Export as Markdown";
+  exportBtn.textContent = loading ? "Exporting…" : "Export";
 }
 
 exportBtn.addEventListener("click", async () => {
@@ -70,8 +70,17 @@ exportBtn.addEventListener("click", async () => {
   const content = format(chat);
   const filename = `${safeFilename(chat.title)}.${extension}`;
 
-  // downloadText must run in the popup's own document
-  downloadText(filename, content, "text/markdown");
+  try {
+    await saveAsText(filename, content, "text/markdown");
+  } catch (saveErr) {
+    // User cancelled the dialog — reset quietly without showing an error.
+    const msg = saveErr.message || "";
+    if (!msg.toLowerCase().includes("cancel") && !msg.toLowerCase().includes("abort")) {
+      setStatus(msg || "Save dialog failed.", "error");
+    }
+    setLoading(false);
+    return;
+  }
 
   const count = chat.messages.length;
   setStatus(`Exported ${count} message${count === 1 ? "" : "s"}.`, "success");

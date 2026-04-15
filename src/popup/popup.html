@@ -14,9 +14,14 @@
     <main>
       <div id="status" class="status" aria-live="polite"></div>
 
-      <button id="export-btn" class="btn-primary">
-        Export as Markdown
-      </button>
+      <div class="export-row">
+        <select id="format-select" class="format-select" aria-label="Export format">
+          <option value="markdown">Markdown</option>
+        </select>
+        <button id="export-btn" class="btn-primary">
+          Export
+        </button>
+      </div>
     </main>
 
     <!-- type="module" lets popup.js use ES module imports (formatters, utils) -->
