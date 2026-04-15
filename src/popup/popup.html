@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Exporter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Chat Exporter</h1>
+    </header>
+
+    <main>
+      <div id="status" class="status" aria-live="polite"></div>
+
+      <button id="export-btn" class="btn-primary">
+        Export as Markdown
+      </button>
+    </main>
+
+    <!-- type="module" lets popup.js use ES module imports (formatters, utils) -->
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

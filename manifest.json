@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Chat Exporter",
+  "version": "0.1.0",
+  "description": "Export chats from Claude, ChatGPT, and Gemini as Markdown",
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Export Chat"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://claude.ai/*",
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://gemini.google.com/*"
+      ],
+      "js": [
+        "src/content/extractors/base.js",
+        "src/content/extractors/claude.js",
+        "src/content/extractors/chatgpt.js",
+        "src/content/extractors/gemini.js",
+        "src/content/content.js"
+      ]
+    }
+  ]
+}
