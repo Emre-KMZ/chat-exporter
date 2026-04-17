@@ -1,8 +1,35 @@
-import { format, extension } from "../formatters/markdown.js";
 import { saveAsText, safeFilename } from "../utils/download.js";
 
 const exportBtn = document.getElementById("export-btn");
 const statusEl = document.getElementById("status");
+
+function formatMarkdown(chat) {
+  const lines = [];
+
+  lines.push(`# ${chat.title || "Chat Export"}`);
+  lines.push("");
+
+  lines.push("| | |");
+  lines.push("|---|---|");
+  lines.push(`| **Source** | ${chat.sourceUrl} |`);
+  lines.push(`| **Exported** | ${new Date(chat.exportedAt).toLocaleString()} |`);
+  if (chat.model) lines.push(`| **Model** | ${chat.model} |`);
+  lines.push("");
+  lines.push("---");
+  lines.push("");
+
+  for (const message of chat.messages) {
+    const heading = message.role === "user" ? "## You" : "## Assistant";
+    lines.push(heading);
+    lines.push("");
+    lines.push(message.content);
+    lines.push("");
+    lines.push("---");
+    lines.push("");
+  }
+
+  return lines.join("\n");
+}
 
 function setStatus(message, type = "info") {
   statusEl.textContent = message;
@@ -11,7 +38,7 @@ function setStatus(message, type = "info") {
 
 function setLoading(loading) {
   exportBtn.disabled = loading;
-  exportBtn.textContent = loading ? "Exporting…" : "Export";
+  exportBtn.textContent = loading ? "Exporting…" : "Export as Markdown";
 }
 
 exportBtn.addEventListener("click", async () => {
@@ -67,13 +94,12 @@ exportBtn.addEventListener("click", async () => {
   }
 
   const { chat } = response;
-  const content = format(chat);
-  const filename = `${safeFilename(chat.title)}.${extension}`;
+  const content = formatMarkdown(chat);
+  const filename = `${safeFilename(chat.title)}.md`;
 
   try {
     await saveAsText(filename, content, "text/markdown");
   } catch (saveErr) {
-    // User cancelled the dialog — reset quietly without showing an error.
     const msg = saveErr.message || "";
     if (!msg.toLowerCase().includes("cancel") && !msg.toLowerCase().includes("abort")) {
       setStatus(msg || "Save dialog failed.", "error");
