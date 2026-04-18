@@ -65,11 +65,20 @@ window.ChatExporter.ClaudeExtractor = class ClaudeExtractor extends window.ChatE
   }
 
   _model() {
-    // Primary: the model selector dropdown button text.
+    // Primary: XPath to the model name text node inside the selector button.
+    const xpath = "/html/body/div[1]/div[1]/div/div[2]/div[3]/div/div[1]/div/div/div/div[2]/div[1]/fieldset/div[2]/div[2]/div[1]/div[2]/div[2]/div/button/div[1]/div/div";
+    try {
+      const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+      const xpathEl = result.singleNodeValue;
+      if (xpathEl && xpathEl.innerText.trim()) return xpathEl.innerText.trim();
+    } catch (_) {}
+
+    // Fallbacks for other DOM shapes.
     const selectors = [
       '[data-testid="model-selector-dropdown"] span',
       '[data-testid="model-selector-dropdown"] button',
       'button[data-testid^="model-"] span',
+      'fieldset button span',
     ];
     for (const sel of selectors) {
       const el = document.querySelector(sel);
