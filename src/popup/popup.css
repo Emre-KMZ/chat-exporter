@@ -7,102 +7,182 @@
 }
 
 body {
-  width: 280px;
-  font-family: system-ui, -apple-system, sans-serif;
+  width: 300px;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 14px;
-  color: #1a1a1a;
-  background: #ffffff;
+  color: #3d2f2a;
+  background: #e0d5c7;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
+/* ── Header ── */
 header {
-  padding: 14px 16px 10px;
-  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: #faf8f3;
+  border-bottom: 2px solid #c9a882;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: #e0d5c7;
+  border: 1px solid #c9a882;
+  border-radius: 8px;
+  color: #6a3f30;
+  flex-shrink: 0;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 h1 {
   font-size: 15px;
-  font-weight: 600;
-  color: #111;
+  font-weight: 700;
+  color: #4a3728;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
+.subtitle {
+  font-size: 11px;
+  color: #8b7355;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ── Main ── */
 main {
-  padding: 16px;
+  padding: 12px 14px 6px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.export-row {
+/* ── Format selector ── */
+.format-group {
   display: flex;
-  gap: 8px;
-  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.format-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8b7355;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .format-select {
-  flex: 1;
-  padding: 9px 8px;
-  border: 1px solid #d1d5db;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #c9a882;
   border-radius: 6px;
   font-size: 13px;
-  font-family: inherit;
-  color: #1a1a1a;
-  background: #fff;
+  font-family: 'Times New Roman', Times, serif;
+  color: #3d2f2a;
+  background: #faf8f3;
   cursor: pointer;
   appearance: auto;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .format-select:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px #bfdbfe;
+  border-color: #8b6f47;
+  box-shadow: 0 0 0 3px rgba(185, 153, 104, 0.2);
 }
 
+/* ── Export button ── */
 .btn-primary {
-  flex-shrink: 0;
-  padding: 9px 14px;
-  background: #2563eb;
-  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 10px 16px;
+  background: #4a3728;
+  color: #faf8f3;
   border: none;
   border-radius: 6px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: Georgia, 'Times New Roman', serif;
   cursor: pointer;
   transition: background 0.15s;
+  letter-spacing: 0.01em;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #3d2f2a;
 }
 
 .btn-primary:disabled {
-  background: #93c5fd;
+  background: #8b7355;
   cursor: not-allowed;
 }
 
-/* Status message */
+.btn-icon {
+  flex-shrink: 0;
+}
+
+/* ── Footer ── */
+footer {
+  padding: 4px 14px 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.gh-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #8b7355;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.gh-link:hover {
+  color: #4a3728;
+}
+
+/* ── Status ── */
 .status {
-  min-height: 18px;
   font-size: 12px;
   line-height: 1.5;
-  border-radius: 4px;
-  padding: 0;
+  border-radius: 6px;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .status:not(:empty) {
-  padding: 7px 10px;
+  padding: 8px 10px;
 }
 
 .status--error {
-  background: #fef2f2;
-  color: #b91c1c;
+  background: #faf8f3;
+  color: #7a2e2e;
+  border: 1px solid #d4a0a0;
 }
 
 .status--success {
-  background: #f0fdf4;
-  color: #15803d;
+  background: #faf8f3;
+  color: #3a5e3a;
+  border: 1px solid #a0c4a0;
 }
 
 .status--info {
-  background: #eff6ff;
-  color: #1e40af;
+  background: #faf8f3;
+  color: #4a3728;
+  border: 1px solid #c9a882;
 }

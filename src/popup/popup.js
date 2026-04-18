@@ -1,6 +1,8 @@
 import { saveAsText, safeFilename } from "../utils/download.js";
 
 const exportBtn = document.getElementById("export-btn");
+const exportBtnText = document.getElementById("export-btn-text");
+const formatSelect = document.getElementById("format-select");
 const statusEl = document.getElementById("status");
 
 function formatMarkdown(chat) {
@@ -38,7 +40,7 @@ function setStatus(message, type = "info") {
 
 function setLoading(loading) {
   exportBtn.disabled = loading;
-  exportBtn.textContent = loading ? "Exporting…" : "Export as Markdown";
+  exportBtnText.textContent = loading ? "Exporting…" : "Export Chat";
 }
 
 exportBtn.addEventListener("click", async () => {

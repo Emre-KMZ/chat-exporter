@@ -2,6 +2,8 @@
 
 A browser extension that lets you export conversations from AI chat platforms as Markdown files.
 
+![Chat Exporter popup](assets/popup.png)
+
 ## Supported Platforms
 
 - [Claude](https://claude.ai)
