@@ -16,6 +16,10 @@ When you are in a chat and click the extension popup, then hit export, it extrac
 
 ## Installation
 
+Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/chat-exporter/kecckkjkijnjnplafcpedjdhbfpffcch/).
+
+### From source
+
 1. Clone this repo
 2. Open your browser's extension management page (e.g. `chrome://extensions`)
 3. Enable **Developer mode**
